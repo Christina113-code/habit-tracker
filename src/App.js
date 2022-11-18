@@ -1,24 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { Button, Container, Stack } from "react-bootstrap";
+import AddHabitModal from "./Components/AddHabitModal";
+import HabitCard from "./Components/HabitCard";
+import { useState } from "react";
+import { useHabits } from "./Contexts/HabitsContext";
+import TotalHabitCard from "./Components/TotalHabitCard";
 function App() {
+  const [showAddHabitModal, setShowAddHabitModal] = useState(false);
+  const {habits, getHabits} = useHabits();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <>
+      <Container className="my-4">
+        <Stack direction="horizontal" gap="2" className="mb-4">
+          <h1 className="me-auto">Habits</h1>
+          <Button variant="primary" onClick = {()=>setShowAddHabitModal(true)}>Add Habit</Button>
+        </Stack>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr",
+            gap: "1rem",
+            alignItems: "flex-start",
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          {habits.map(habit =>{
+            const amount = getHabits(habit.id).length ;
+           return <HabitCard 
+            name={habit.name}
+            key={habit.id} 
+            reps = {amount}
+            goal={habit.goal} id={habit.id}/>
+            
+})}
+<TotalHabitCard/>
+        </div>
+        
+      </Container>
+      <AddHabitModal show = {showAddHabitModal} handleClose = {()=>setShowAddHabitModal(false)}/>
+    </>
   );
 }
 
