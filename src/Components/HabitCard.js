@@ -3,7 +3,7 @@ import { Button, Card, ProgressBar, Stack } from 'react-bootstrap'
 import { repFormatter } from '../utils';
 import {AiOutlinePlus} from 'react-icons/ai'
 import { useHabits } from '../Contexts/HabitsContext';
-
+import {AiOutlineDelete} from 'react-icons/ai';
 
 const getProgressBarVariant = (reps, goal)=>{
     const ratio = reps/goal;
@@ -11,9 +11,10 @@ const getProgressBarVariant = (reps, goal)=>{
     if(ratio >=1) return 'success';
 
 }
+
 const HabitCard = ({name,reps, goal, gray, id, hideButtons}) => {
     
-    const {addRep, habits} = useHabits();
+    const {addRep,  deleteHabit} = useHabits();
 
     // Plus sign button -> need to add rep to unique habit 
 function addRepetition(goal, habitId) {
@@ -21,6 +22,10 @@ function addRepetition(goal, habitId) {
         goal, habitId
     })
   }
+
+function delHabit(id){
+   deleteHabit(id);
+}
 
     const classNames = [];
     if(reps >=goal){
@@ -39,7 +44,7 @@ function addRepetition(goal, habitId) {
             <ProgressBar className = 'rounded-pill' variant = {getProgressBarVariant(reps, goal)} min={0} max={goal} now={reps}/>
         </Card.Body>
         {!hideButtons?  <Stack direction = "horizontal" gap = "2" className = "m-3">
-            <Button variant = 'outline-secondary' className = 'ms-auto ' >Delete Habit</Button>
+            <Button variant = 'outline-secondary' className = 'ms-auto d-flex align-items-center justify-content-center p-2 text-danger btn-outline-danger' onClick = {()=>delHabit(id)}><AiOutlineDelete/></Button>
             <Button variant = "outline-primary" className = 'd-flex align-items-center justify-content-center p-2' onClick = {()=>addRepetition(goal, id)}><AiOutlinePlus/></Button>
 
         </Stack>:''}

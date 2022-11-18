@@ -28,7 +28,7 @@ const AddHabitModal = ({ show, handleClose }) => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="goal">
             <Form.Label>Goal</Form.Label>
-            <Form.Control type="number" required min={0} step={1} ref={goalRef} />
+            <Form.Control type="number" required min={1} step={1} ref={goalRef} />
           </Form.Group>
           <div className="d-flex justify-content-end">
             <Button variant="primary" type="submit">

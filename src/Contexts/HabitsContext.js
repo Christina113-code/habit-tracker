@@ -37,7 +37,6 @@ var datetime = "Last Sync: " + currentdate.getDate() + "/"
 export const HabitsProvider = ({children}) =>{
     const [habits, setHabits] = useLocalStorage('habits', [])
     const [reps, setReps] = useLocalStorage('reps', [])
-
     function addHabit({name, goal}) {
         setHabits(prevHabits =>{
             // Check if habit already exists
@@ -47,12 +46,16 @@ export const HabitsProvider = ({children}) =>{
             return [...prevHabits,{id:uuidV4(), name, goal }]
         })
     }
-    function deleteHabit({id}) {
+    function deleteHabit(id) {
+        
         setHabits(prevHabits=>{
             return prevHabits.filter(habit => habit.id !== id);
         })
+        setReps(prevReps=>{
+            return prevReps.filter(rep => rep.habitId !== id);
+        })
     }
-    function deleteRep({id}) {
+    function deleteRep(id) {
         setReps(prevReps=>{
             return prevReps.filter(rep => rep.id !== id);
         })
