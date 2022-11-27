@@ -5,6 +5,7 @@ import { useHabits } from "../Contexts/HabitsContext";
 const AddHabitModal = ({ show, handleClose }) => {
   const nameRef = useRef();
   const goalRef = useRef();
+  const unitRef = useRef();
   const { addHabit } = useHabits();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -12,6 +13,7 @@ const AddHabitModal = ({ show, handleClose }) => {
     addHabit({
       name: nameRef.current.value,
       goal: parseInt(goalRef.current.value),
+      unit: unitRef.current.value
     });
     handleClose();
   };
@@ -23,12 +25,16 @@ const AddHabitModal = ({ show, handleClose }) => {
         </Modal.Header>
         <Modal.Body>
           <Form.Group className="mb-3" controlId="name">
-            <Form.Label>Name</Form.Label>
-            <Form.Control type="text" required  ref={nameRef}/>
+            <Form.Label>Habit name</Form.Label>
+            <Form.Control type="text" required  ref={nameRef} placeholder = "Run"/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="goal">
-            <Form.Label>Goal</Form.Label>
-            <Form.Control type="number" required min={1} step={1} ref={goalRef} />
+            <Form.Label>Your goal</Form.Label>
+            <Form.Control type="number" required min={1} step={1} ref={goalRef} placeholder = "10"/>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="goal">
+            <Form.Label>Unit of Measurement</Form.Label>
+            <Form.Control type="text" required ref={unitRef} placeholder = "miles" />
           </Form.Group>
           <div className="d-flex justify-content-end">
             <Button variant="primary" type="submit">

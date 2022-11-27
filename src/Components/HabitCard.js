@@ -12,7 +12,7 @@ const getProgressBarVariant = (reps, goal)=>{
 
 }
 
-const HabitCard = ({name,reps, goal, gray, id, hideButtons}) => {
+const HabitCard = ({name,reps, goal, gray, id, hideButtons, unit}) => {
     
     const {addRep,  deleteHabit} = useHabits();
 
@@ -38,7 +38,7 @@ function delHabit(id){
         <Card.Body>
             <Card.Title className = "d-flex justify-content-between align-items-baseline fw-normal mb-3">
                 <div className = "me-2">{name}</div>
-                <div className = "d-flex align-items-baseline">{repFormatter.format(reps)} / <span className= 'text-muted fs-6 ms-1'>{repFormatter.format(goal)}</span></div>
+                <div className = "d-flex align-items-baseline">{repFormatter.format(reps)} / <span className= 'text-muted fs-6 ms-1'>{repFormatter.format(goal)} {unit}</span></div>
 
             </Card.Title>
             <ProgressBar className = 'rounded-pill' variant = {getProgressBarVariant(reps, goal)} min={0} max={goal} now={reps}/>

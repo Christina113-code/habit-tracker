@@ -28,7 +28,7 @@ function App() {
             name={habit.name}
             key={habit.id} 
             reps = {amount}
-            goal={habit.goal} id={habit.id}/>
+            goal={habit.goal} id={habit.id} unit = {habit.unit}/>
             
 })}
 <TotalHabitCard/>
